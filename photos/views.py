@@ -1,9 +1,8 @@
-from django.shortcuts import render
+"""Views for photos"""
 from rest_framework import generics
-from photos.models import Photos
+from photos.models import Photo
 from photos.serializers import PhotoSerializer
 
 
 class PhotosListView(generics.ListAPIView):
-    serializer_class = PhotoSerializer
-    queryset = Photos.objects.all()
+    """Photo list view class"""
