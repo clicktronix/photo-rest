@@ -8,7 +8,7 @@ class Photo(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     width = models.IntegerField()
     height = models.IntegerField()
-    src = models.CharField(max_length=100)
+    binary = models.ImageField(upload_to="photos/%Y.%m.%d", max_length=255, blank=True)
     album = models.TextField(max_length=100)
     is_grid = models.BooleanField(default=False)
 

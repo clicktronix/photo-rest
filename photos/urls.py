@@ -4,6 +4,6 @@ from photos.views import PhotoCreateView, PhotoListView
 
 app_name = "photo"
 urlpatterns = [
-    path("photos/<int:id>/", PhotoCreateView.as_view()),
-    path("photos/", PhotoListView.as_view()),
+    path("<int:id>/", PhotoCreateView.as_view()),
+    path("", PhotoListView.as_view()),
 ]
