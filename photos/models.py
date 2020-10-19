@@ -8,9 +8,5 @@ class Photo(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     width = models.IntegerField()
     height = models.IntegerField()
-    binary = models.ImageField(upload_to="photos/%Y.%m.%d", max_length=255, blank=True)
-    album = models.TextField(max_length=100)
+    img = models.ImageField(upload_to="photos", max_length=255, blank=True)
     is_grid = models.BooleanField(default=False)
-
-    class Meta:
-        ordering = ["created"]
