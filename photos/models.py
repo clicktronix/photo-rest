@@ -14,6 +14,7 @@ class Photo(models.Model):
         upload_to="photos", max_length=255, height_field="height", width_field="width"
     )
     is_grid = models.BooleanField(default=False)
+    is_main_screen = models.BooleanField(default=False)
 
 
 @receiver(post_delete, sender=Photo)

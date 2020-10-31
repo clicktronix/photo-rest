@@ -4,10 +4,17 @@ from photos.serializers import PhotoSerializer
 from photos.models import Photo
 
 
-class PhotoListView(generics.ListAPIView):
+class PhotoListGridView(generics.ListAPIView):
     """Photo list view class"""
 
-    queryset = Photo.objects.all()
+    queryset = Photo.objects.filter(is_grid=True)
+    serializer_class = PhotoSerializer
+
+
+class PhotoListMainScreenView(generics.ListAPIView):
+    """Photo list view class"""
+
+    queryset = Photo.objects.filter(is_main_screen=True)
     serializer_class = PhotoSerializer
 
 
