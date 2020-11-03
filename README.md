@@ -1,2 +1,2 @@
 # photo-rest
-Rest server for storing and responsing photos. Written with django rest framework
+Rest server for storing photos and sending them to the frontend. Written with django rest framework
