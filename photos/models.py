@@ -1,7 +1,6 @@
 """Photo model"""
 from django.db import models
 from django.db.models.signals import post_delete, pre_save
-from django.contrib import admin
 from django.dispatch import receiver
 
 class Album(models.Model):
