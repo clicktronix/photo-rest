@@ -1,7 +1,14 @@
 """Views for photos"""
 from rest_framework import generics
-from photos.serializers import PhotoSerializer
-from photos.models import Photo
+from photos.serializers import PhotoSerializer, AlbumSerializer
+from photos.models import Photo, Album
+
+
+class AlbumListView(generics.ListAPIView):
+    """Album list view class"""
+
+    queryset = Album.objects.all()
+    serializer_class = AlbumSerializer
 
 
 class PhotoListGridView(generics.ListAPIView):

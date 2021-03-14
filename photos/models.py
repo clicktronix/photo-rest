@@ -1,7 +1,19 @@
 """Photo model"""
 from django.db import models
 from django.db.models.signals import post_delete, pre_save
+from django.contrib import admin
 from django.dispatch import receiver
+
+class Album(models.Model):
+    """Album model class"""
+
+    name = models.CharField(max_length=120, blank=False, null=False)
+    description = models.TextField(max_length=300, null=True)
+    created = models.DateField(auto_now_add=True)
+    updated = models.DateField(auto_now=True)
+
+    def __str__(self):
+        return u'%s' % (self.name)
 
 
 class Photo(models.Model):
@@ -13,8 +25,13 @@ class Photo(models.Model):
     img = models.ImageField(
         upload_to="photos", max_length=255, height_field="height", width_field="width"
     )
+    album_id = models.ForeignKey(
+        Album, related_name='photos', on_delete=models.CASCADE, blank=True, null=True
+    )
     is_grid = models.BooleanField(default=False)
     is_main_screen = models.BooleanField(default=False)
+    readonly_fields = ('image_preview', )
+
 
 
 @receiver(post_delete, sender=Photo)
@@ -44,3 +61,4 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
     new_img = instance.img
     if not old_img == new_img:
         old_img.delete(False)
+
