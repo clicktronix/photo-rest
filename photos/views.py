@@ -1,5 +1,6 @@
 """Views for photos"""
 from rest_framework import generics
+from rest_framework.parsers import MultiPartParser, FormParser
 from photos.serializers import PhotoSerializer, AlbumSerializer
 from photos.models import Photo, Album
 
@@ -28,5 +29,7 @@ class PhotoListMainScreenView(generics.ListAPIView):
 class PhotoCreateView(generics.CreateAPIView):
     """Photo create view class"""
 
+    parser_classes = (MultiPartParser, FormParser)
     queryset = Photo.objects.all()
-    serializer_class = PhotoSerializer
+    serializer_class = PhotoSerializer(queryset, many=True)
+

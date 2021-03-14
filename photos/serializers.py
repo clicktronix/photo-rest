@@ -13,11 +13,13 @@ class PhotoSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class AlbumSerializer():
+class AlbumSerializer(serializers.ModelSerializer):
     """Album serializer class"""
+
+    photos = PhotoSerializer(many=True, read_only=True)
 
     class Meta:
         """Meta class for Album serializer"""
 
         model = Album
-        fields = "__all__"
+        fields = ('name', 'description', 'photos')

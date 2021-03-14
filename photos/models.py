@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models.signals import post_delete, pre_save
 from django.dispatch import receiver
 
+
 class Album(models.Model):
     """Album model class"""
 
