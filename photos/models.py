@@ -2,18 +2,7 @@
 from django.db import models
 from django.db.models.signals import post_delete, pre_save
 from django.dispatch import receiver
-
-
-class Album(models.Model):
-    """Album model class"""
-
-    name = models.CharField(max_length=120, blank=False, null=False)
-    description = models.TextField(max_length=300, null=True)
-    created = models.DateField(auto_now_add=True)
-    updated = models.DateField(auto_now=True)
-
-    def __str__(self):
-        return u'%s' % (self.name)
+from albums.models import Album
 
 
 class Photo(models.Model):
@@ -22,7 +11,7 @@ class Photo(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     width = models.PositiveIntegerField(editable=False)
     height = models.PositiveIntegerField(editable=False)
-    img = models.ImageField(
+    src = models.ImageField(
         upload_to="photos", max_length=255, height_field="height", width_field="width"
     )
     album_id = models.ForeignKey(
@@ -30,8 +19,12 @@ class Photo(models.Model):
     )
     is_grid = models.BooleanField(default=False)
     is_main_screen = models.BooleanField(default=False)
-    readonly_fields = ('image_preview', )
-
+    is_album_preview = models.OneToOneField(
+        Album, related_name='preview',
+        on_delete=models.CASCADE, 
+        blank=True, 
+        null=True, 
+    )
 
 
 @receiver(post_delete, sender=Photo)
@@ -40,7 +33,7 @@ def submission_delete(sender, instance, **kwargs):
     Deletes image from filesystem
     when corresponding `Photo` object is deleted.
     """
-    instance.img.delete(False)
+    instance.src.delete(False)
 
 
 @receiver(pre_save, sender=Photo)
@@ -54,11 +47,10 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
         return False
 
     try:
-        old_img = Photo.objects.get(pk=instance.pk).img
+        old_img = Photo.objects.get(pk=instance.pk).src
     except Photo.DoesNotExist:
         return False
 
-    new_img = instance.img
+    new_img = instance.src
     if not old_img == new_img:
         old_img.delete(False)
-

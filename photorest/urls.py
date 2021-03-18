@@ -21,7 +21,8 @@ from django.conf import settings
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/v1/photos/", include(("photos.urls", "photos"))),
+    path("api/v1/photos", include(("photos.urls", "photos"))),
+    path("api/v1/albums", include(("albums.urls", "albums"))),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
