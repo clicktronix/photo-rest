@@ -13,7 +13,9 @@ class AlbumAdmin(admin.ModelAdmin):
     def preview(self, obj):
         """Format album photo preview"""
         return format_html(
-            '<img src="/media/{}" style="width: 130px; height: auto"/>'.format(obj.preview)
+            '<img src="/media/{}" style="width: 130px; height: auto"/>'.format(
+                obj.preview
+            )
         )
 
-    preview.short_description = 'preview'
+    preview.short_description = "preview"

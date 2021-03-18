@@ -1,4 +1,4 @@
-"""Views for photos"""
+"""Views for albums"""
 from rest_framework import generics
 from albums.models import Album
 from albums.serializers import AlbumSerializer

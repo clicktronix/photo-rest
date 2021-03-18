@@ -15,15 +15,16 @@ class Photo(models.Model):
         upload_to="photos", max_length=255, height_field="height", width_field="width"
     )
     album_id = models.ForeignKey(
-        Album, related_name='photos', on_delete=models.CASCADE, blank=True, null=True
+        Album, related_name="photos", on_delete=models.CASCADE, blank=True, null=True
     )
     is_grid = models.BooleanField(default=False)
     is_main_screen = models.BooleanField(default=False)
     is_album_preview = models.OneToOneField(
-        Album, related_name='preview',
-        on_delete=models.CASCADE, 
-        blank=True, 
-        null=True, 
+        Album,
+        related_name="preview",
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
 
 
