@@ -13,7 +13,7 @@ class PhotoAdmin(admin.ModelAdmin):
         "src",
         "is_grid",
         "is_main_screen",
-        "is_album_preview",
+        "album_preview",
         "thumbnail",
     )
 

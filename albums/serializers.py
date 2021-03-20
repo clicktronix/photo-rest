@@ -1,14 +1,14 @@
 """Serializers for photos"""
 from rest_framework import serializers
-from photos.models import Album
 from photos.serializers import PhotoSerializer
+from albums.models import Album
 
 
 class AlbumSerializer(serializers.ModelSerializer):
     """Album serializer class"""
 
     photos = PhotoSerializer(many=True, read_only=True)
-    preview = filter(lambda x: hasattr(x, "is_album_preview"), photos.data[:])
+    preview = PhotoSerializer(read_only=True)
 
     class Meta:
         """Meta class for Album serializer"""
