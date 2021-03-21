@@ -19,7 +19,7 @@ class PhotoListMainScreenView(generics.ListAPIView):
     serializer_class = PhotoSerializer
 
 
-class PhotoCreateView(generics.CreateAPIView):
+class PhotoCreateView(generics.RetrieveAPIView):
     """Photo create view class"""
 
     parser_classes = (MultiPartParser, FormParser)

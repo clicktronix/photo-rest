@@ -8,6 +8,10 @@ from photos.models import Photo
 class PhotoAdmin(admin.ModelAdmin):
     """Class for customizing admins photos view"""
 
+    list_filter = ("album_id", "is_grid", "is_main_screen", "album_preview")
+
+    list_per_page = 50
+
     list_display = (
         "id",
         "src",

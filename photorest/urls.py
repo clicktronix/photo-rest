@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
+    path("grappelli/", include("grappelli.urls")),
     path("admin/", admin.site.urls),
     path("api/v1/photos", include(("photos.urls", "photos"))),
     path("api/v1/albums", include(("albums.urls", "albums"))),

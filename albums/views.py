@@ -9,3 +9,10 @@ class AlbumListView(generics.ListAPIView):
 
     queryset = Album.objects.all()
     serializer_class = AlbumSerializer
+
+
+class AlbumCreateView(generics.RetrieveAPIView):
+    """Album  create view class"""
+
+    queryset = Album.objects.all()
+    serializer_class = AlbumSerializer
