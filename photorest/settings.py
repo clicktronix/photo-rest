@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-from os import path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -124,13 +123,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-PROJECT_ROOT = path.dirname(path.abspath(__file__))
+PROJECT_ROOT = Path(__file__).resolve()
 
 STATIC_URL = "/static/"
-STATIC_ROOT = path.join(PROJECT_ROOT, "static")
+STATIC_ROOT = BASE_DIR.joinpath("static")
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = path.join(BASE_DIR, "media")
+MEDIA_ROOT = BASE_DIR.joinpath("media")
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",

@@ -14,4 +14,4 @@ class AlbumSerializer(serializers.ModelSerializer):
         """Meta class for Album serializer"""
 
         model = Album
-        fields = ("name", "description", "photos", "preview")
+        fields = ("id", "name", "description", "photos", "preview")
