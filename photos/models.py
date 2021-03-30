@@ -1,4 +1,5 @@
 """Photo model"""
+import sys
 from io import BytesIO
 from django.db import models
 from django.db.models.signals import post_delete, pre_save
@@ -6,7 +7,6 @@ from django.dispatch import receiver
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from PIL import Image
 from albums.models import Album
-import sys
 
 
 class Photo(models.Model):
@@ -35,9 +35,11 @@ class Photo(models.Model):
         """
         Custom save method with photo compressing
         """
+        ratio = 0.7
         photo = Image.open(self.src)
         blob = BytesIO()
-        photo.save(blob, "JPEG", quality=45, optimize=True)
+        photo = photo.resize([int(ratio * s) for s in photo.size], Image.ANTIALIAS)
+        photo.save(blob, "JPEG", quality=55, optimize=True)
         blob.seek(0)
         self.src = InMemoryUploadedFile(
             blob,
