@@ -1,8 +1,12 @@
 """Photo model"""
+from io import BytesIO
 from django.db import models
 from django.db.models.signals import post_delete, pre_save
 from django.dispatch import receiver
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from PIL import Image
 from albums.models import Album
+import sys
 
 
 class Photo(models.Model):
@@ -26,6 +30,24 @@ class Photo(models.Model):
         blank=True,
         null=True,
     )
+
+    def save(self):
+        """
+        Custom save method with photo compressing
+        """
+        photo = Image.open(self.src)
+        blob = BytesIO()
+        photo.save(blob, "JPEG", quality=45, optimize=True)
+        blob.seek(0)
+        self.src = InMemoryUploadedFile(
+            blob,
+            "ImageField",
+            "%s.jpg" % self.src.name.split(".")[0],
+            "image/jpeg",
+            sys.getsizeof(blob),
+            None,
+        )
+        super(Photo, self).save()
 
 
 @receiver(post_delete, sender=Photo)
@@ -53,5 +75,6 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
         return False
 
     new_img = instance.src
+
     if not old_img == new_img:
         old_img.delete(False)
