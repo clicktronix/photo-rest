@@ -36,8 +36,8 @@ class Photo(models.Model):
         Custom save method with photo compressing
         """
         ratio = 0.7
-        photo = Image.open(self.src)
         blob = BytesIO()
+        photo = Image.open(self.src)
         photo = photo.resize([int(ratio * s) for s in photo.size], Image.ANTIALIAS)
         photo.save(blob, "JPEG", quality=55, optimize=True)
         blob.seek(0)
@@ -80,3 +80,6 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
 
     if not old_img == new_img:
         old_img.delete(False)
+        return True
+
+    return False
