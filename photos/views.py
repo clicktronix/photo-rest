@@ -18,6 +18,13 @@ class PhotoListMainScreenView(generics.ListAPIView):
     serializer_class = PhotoSerializer
 
 
+class PhotoAboutRetrieveView(generics.RetrieveAPIView):
+    """Photo list view class"""
+
+    queryset = Photo.objects.filter(is_about_preview=True)
+    serializer_class = PhotoSerializer
+
+
 class PhotoRetrieveView(generics.RetrieveAPIView):
     """Photo retrieve view class"""
 

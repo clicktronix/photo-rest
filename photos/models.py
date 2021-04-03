@@ -20,6 +20,7 @@ class Photo(models.Model):
     )
     is_grid = models.BooleanField(default=False)
     is_main_screen = models.BooleanField(default=False)
+    is_about_preview = models.BooleanField(default=False)
     album_id = models.ForeignKey(
         Album, related_name="photos", on_delete=models.CASCADE, blank=True, null=True
     )
@@ -37,6 +38,7 @@ class Photo(models.Model):
         """
         ratio = 0.7
         blob = BytesIO()
+        self.src.open()
         photo = Image.open(self.src)
         photo = photo.resize([int(ratio * s) for s in photo.size], Image.ANTIALIAS)
         photo.save(blob, "JPEG", quality=55, optimize=True)
@@ -49,6 +51,11 @@ class Photo(models.Model):
             sys.getsizeof(blob),
             None,
         )
+        if self.is_about_preview:
+            items = Photo.objects.filter(is_about_preview=True)
+            for item in items:
+                item.is_about_preview = False
+                item.save()
         super(Photo, self).save()
 
 
