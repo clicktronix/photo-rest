@@ -1,11 +1,11 @@
 """Admin for contact app"""
 from django.contrib import admin
-from contact.models import Contact
+from contacts.models import Contacts
 
 
-@admin.register(Contact)
+@admin.register(Contacts)
 class ContactsAdmin(admin.ModelAdmin):
-    """Class for customizing admins contact view"""
+    """Class for customizing admins contacts view"""
 
     list_display = (
         "email",

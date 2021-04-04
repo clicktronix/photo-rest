@@ -32,7 +32,7 @@ class Photo(models.Model):
         null=True,
     )
 
-    def save(self):
+    def save(self, *args, **kwargs):
         """
         Custom save method with photo compressing
         """
@@ -56,7 +56,7 @@ class Photo(models.Model):
             for item in items:
                 item.is_about_preview = False
                 item.save()
-        super(Photo, self).save()
+        super(Photo, self).save(*args, **kwargs)
 
 
 @receiver(post_delete, sender=Photo)
