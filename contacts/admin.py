@@ -9,7 +9,7 @@ class ContactsAdmin(admin.ModelAdmin):
 
     list_display = (
         "email",
-        "watsapp",
+        "whatsapp",
         "instagram",
         "phone",
     )

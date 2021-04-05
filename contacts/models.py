@@ -12,7 +12,7 @@ class Contacts(models.Model):
     phone = models.CharField(
         blank=True, null=True, max_length=255, verbose_name="phone"
     )
-    watsapp = models.CharField(
+    whatsapp = models.CharField(
         blank=True, null=True, max_length=255, verbose_name="watsapp"
     )
     instagram = models.CharField(

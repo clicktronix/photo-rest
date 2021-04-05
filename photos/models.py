@@ -36,12 +36,12 @@ class Photo(models.Model):
         """
         Custom save method with photo compressing
         """
-        ratio = 0.7
+        ratio = 0.8
         blob = BytesIO()
         self.src.open()
         photo = Image.open(self.src)
         photo = photo.resize([int(ratio * s) for s in photo.size], Image.ANTIALIAS)
-        photo.save(blob, "JPEG", quality=55, optimize=True)
+        photo.save(blob, "JPEG", quality=70, optimize=True)
         blob.seek(0)
         self.src = InMemoryUploadedFile(
             blob,
